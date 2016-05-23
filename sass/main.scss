@@ -1,0 +1,21 @@
+#board {
+	position: relative;
+
+	#grid {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		> img {
+			position: absolute;
+			&.pusher { outline: 1px solid red; }
+		}
+	}
+
+	#pusher {
+		position: absolute;
+		z-index: 0;
+		background: #ddd;
+		left: 0;
+	}
+}

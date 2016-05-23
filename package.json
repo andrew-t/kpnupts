@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/babel js-src -d js-lib && ./node_modules/.bin/node-sass scss/main.scss css/style.css"
+    "build": "./node_modules/.bin/babel js-src -d js-lib && ./node_modules/.bin/node-sass sass/main.scss css/style.css"
   },
   "author": "",
   "license": "ISC",
