@@ -2,11 +2,11 @@ function startGame() {
 	// Initialise
 	var grid = [];
 	for (let i = 0; i < cols; ++i)
-		grid.push([]);
+		grid.push(new Set());
 	// Pre-populate pusher
 	grid.forEach(col => {
 		for (let y = 0; y < pusherRows; ++y)
-			col.push(randomTile());
+			col.add(randomTile(y));
 	});
 
 	var frameRequestId =
@@ -33,25 +33,22 @@ function startGame() {
 	return game;
 }
 
-function randomTile() {
+function randomTile(y) {
 	return {
 		colour: randomElement(colours),
 		symbol: randomElement(symbols),
-		yOffset: 0,
+		y,
+		oldY: y,
 		onPusher: true
 	};
 }
 
 function blocksPushEachOtherDown(game) {
 	game.grid.forEach(col => {
-		let lastBlock = col[0];
-		for (let y = 1; y < height; ++y) {
-			let block = col[y];
-			if (block && lastBlock &&
-				lastBlock.yOffset > block.yOffset)
-					block.yOffset = lastBlock.yOffset;
-			lastBlock = block;
-		}
+		for (let a of col)
+			for (let b of col)
+				if (a.lastY < b.y && a.lastY > b.y)
+					b.y = a.y + 1;
 	})
 }
 
@@ -91,43 +88,14 @@ function calculateNewFrame(game, now) {
 				game.pusherStateChange = now;
 			}
 
-			let pusherWholeBlockMoves = ~~game.pusherPosition - ~~oldPosition,
-				pusherOffsetMove = pusherDelta - pusherWholeBlockMoves;
-
 			// Now move any blocks that are on it:
+			let pusherBottom = game.pusherPosition + pusherRows - 0.5;
 			game.grid.forEach(column => {
-				for (let i = 0; i < pusherWholeBlockMoves; ++i) {
-					// This is how new blocks appear:
-					let displacedTile =
-							(Math.random() > tileChance)
-								? null
-								: randomTile(),
-						y = 0;
-					while (true) {
-						let pusherBottom = ~~game.pusherPosition + pusherRows;
-
-						let currentTile = column[y];
-						column[y] = displacedTile;
-						displacedTile = currentTile;
-						currentTile = column[y];
-
-						if (++y > pusherBottom) {
-							if (currentTile)
-								currentTile.onPusher = false;
-							if (!displacedTile)
-								break;
-						}
-
-					}
+				for (let block of column) {
+					block.y += pusherDelta;
+					if (block.y > pusherBottom)
+						block.onPusher = false;
 				}
-			});
-			game.grid.forEach(column => {
-				column.forEach(block => {
-					if (block !== null &&
-						block !== undefined &&
-						block.onPusher)
-						block.yOffset += pusherOffsetMove;
-				});
 			});
 		}
 	}

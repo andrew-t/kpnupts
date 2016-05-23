@@ -14,7 +14,7 @@ var display = (function() {
 		if (!pusherElement) {
 			pusherElement = document.getElementById('pusher');
 			pusherElement.style.width = blockPosition(cols);
-			pusherElement.style.height = blockPosition(pusherRows);
+			pusherElement.style.height = blockPosition(pusherRows + pusherMotion);
 		}
 
 		let allChildren = new Set();
@@ -22,7 +22,7 @@ var display = (function() {
 			allChildren.add(boardElement.childElements[i]);
 
 		game.grid.forEach((column, x) => {
-			column.forEach((block, y) => {
+			column.forEach(block => {
 				if (!block) return;
 
 				let el = block.element;
@@ -34,7 +34,7 @@ var display = (function() {
 					boardElement.appendChild(el);
 				}
 
-				el.style.top = blockPosition(y + block.yOffset);
+				el.style.top = blockPosition(block.y);
 				el.style.left = blockPosition(x);
 				el.style.width = el.style.height = blockPosition(1);
 				el.classList[block.onPusher ? 'add' : 'remove']('pusher');
@@ -46,7 +46,7 @@ var display = (function() {
 		for (let child of allChildren)
 			colEl.removeChild(child);
 
-		pusherElement.style.top = blockPosition(game.pusherPosition);
+		pusherElement.style.top = blockPosition(game.pusherPosition - pusherMotion);
 	}
 
 	function blockPosition(val) {
