@@ -18,8 +18,8 @@ var display = (function() {
 		}
 
 		let allChildren = new Set();
-		for (let i = 0; i < boardElement.childElements; ++i)
-			allChildren.add(boardElement.childElements[i]);
+		for (let i = 0; i < boardElement.children.length; ++i)
+			allChildren.add(boardElement.children[i]);
 
 		game.grid.forEach((column, x) => {
 			column.forEach(block => {
@@ -44,7 +44,7 @@ var display = (function() {
 		});
 
 		for (let child of allChildren)
-			colEl.removeChild(child);
+			boardElement.removeChild(child);
 
 		pusherElement.style.top = blockPosition(game.pusherPosition - pusherMotion);
 	}

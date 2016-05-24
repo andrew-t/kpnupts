@@ -5,15 +5,23 @@ var cols = 7,
 	plateRows = 10,
 	height = pusherRows + pusherMotion + plateRows,
 
+	lineLength = 3,
+	lineScore = 1,
+	noLoneScore = new Set([ 'k' ]), // no points for KKK
+	colourScore = 2,
+
 	up = -1,
 	down = 1,
 
 	blockSize = 5,
 	blockUnit = 'vh',
 
-	pusherSpeed = 1000, // ms/tile
-	pusherPause = 1000, // ms at extremes
+	pusherSpeed = 1000, // milliseconds per tile
+	pusherPause = 1000, // milliseconds at extremes
 	pusherPeriod = (pusherSpeed * pusherMotion + pusherPause) * 2,
+
+	maxDeltaPerFrame = 250, // milliseconds
+	yEpsilon = 0.05,
 
 	tileChance = .75,
 
@@ -24,7 +32,7 @@ var cols = 7,
 	],
 	symbols = [
 		{ slug: 'p' },
-		{ slug: '+' },
+		{ slug: 'plus' },
 		{ slug: 'k' },
 		{ slug: 'robot' },
 		{ slug: 'star' },
@@ -33,5 +41,4 @@ var cols = 7,
 		{ slug: 'infinity' },
 		{ slug: 'teapot' },
 		{ slug: 'cupcake' }
-		// More?
 	];
