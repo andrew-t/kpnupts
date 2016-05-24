@@ -182,7 +182,7 @@ function calculateNewFrame(game, now) {
 			}
 
 			// Now move any blocks that are on it:
-			let pusherBottom = game.pusherPosition + pusherRows - 0.5;
+			let pusherBottom = game.pusherPosition + pusherRows;
 			game.grid.forEach(column => {
 				for (let block of column)
 					if (block.onPusher) {
@@ -190,7 +190,7 @@ function calculateNewFrame(game, now) {
 						if (game.pusherDirection == up &&
 							block.y < 0)
 							block.y = 0;
-						if (block.y > pusherBottom)
+						if (block.y > pusherBottom - 0.5)
 							block.onPusher = false;
 					} else if (block.y < pusherBottom)
 						block.y = pusherBottom;
