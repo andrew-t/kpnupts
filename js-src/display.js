@@ -2,7 +2,7 @@ var display = (function() {
 
 	var boardElement,
 		pusherElement,
-		scoreElement, scoreNode;
+		scoreElement, scoreNode, lastScore;
 
 	return {
 		drawGrid
@@ -52,14 +52,21 @@ var display = (function() {
 
 		pusherElement.style.top = blockPosition(game.pusherPosition - pusherMotion);
 
-		if (scoreNode)
+		if (scoreNode && (lastScore !== game.score)) {
 			scoreElement.removeChild(scoreNode);
-		scoreNode = document.createTextNode(game.score);
-		scoreElement.appendChild(scoreNode);
-	}
+			scoreNode = null;
+		}
+		if (!scoreNode) {
+			scoreNode = document.createTextNode(game.score);
+			scoreElement.appendChild(scoreNode);
+			lastScore = game.score;
+		}
 
-	function blockPosition(val) {
-		return (val * blockSize) + blockUnit;
+		game.cursors.forEach(cursor => cursor.display());
 	}
 
 })();
+
+function blockPosition(val) {
+	return (val * blockSize) + blockUnit;
+}

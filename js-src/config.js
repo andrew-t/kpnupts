@@ -3,6 +3,7 @@ var cols = 7,
 	pusherRows = 4,
 	pusherMotion = 2,
 	plateRows = 10,
+	cursorAreaTop = pusherRows + pusherMotion,
 	height = pusherRows + pusherMotion + plateRows,
 
 	lineLength = 3,

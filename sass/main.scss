@@ -61,6 +61,24 @@
 		left: 0;
 		outline: 1em solid #ddd;
 	}
+
+	#cursors {
+		position: relative;
+		left: -.25em;
+		top: -.25em;
+		> * {
+			position: absolute;
+			z-index: 2;
+			transition: top 150ms, left 150ms;
+			border-radius: .25em;
+			&:first-child {
+				border: .25em solid #f80;
+			}
+			&:nth-child(2) {
+				border: .25em solid #f0f;
+			}
+		}
+	}
 }
 
 #score {
