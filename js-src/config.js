@@ -26,9 +26,9 @@ var cols = 7,
 	tileChance = .75,
 
 	colours = [
-		{ hex: '#bbb' },
-		{ hex: '#00f' },
-		{ hex: '#80c' }
+		{ slug: 'blue' },
+		{ slug: 'purple' },
+		{ slug: 'grey' }
 	],
 	symbols = [
 		{ slug: 'p' },

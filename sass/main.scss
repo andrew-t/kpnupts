@@ -6,9 +6,51 @@
 		left: 0;
 		top: 0;
 		z-index: 1;
-		> img {
+		> * {
 			position: absolute;
 			// &.pusher { outline: 1px solid red; }
+
+			&.blue {
+				background-color: #0000ff;
+			}
+			&.purple {
+				background-color: #8800dd;
+			}
+			&.grey {
+				background-color: #dddddd;
+			}
+
+			background-size: contain;
+			&.p {
+				background-image: url('../img/p.png');
+			}
+			&.plus {
+				background-image: url('../img/plus.png');
+			}
+			&.k {
+				background-image: url('../img/k.png');
+			}
+			&.robot {
+				background-image: url('../img/robot.png');
+			}
+			&.star {
+				background-image: url('../img/star.png');
+			}
+			&.question {
+				background-image: url('../img/question.png');
+			}
+			&.triforce {
+				background-image: url('../img/triforce.png');
+			}
+			&.infinity {
+				background-image: url('../img/infinity.png');
+			}
+			&.teapot {
+				background-image: url('../img/teapot.png');
+			}
+			&.cupcake {
+				background-image: url('../img/cupcake.png');
+			}
 		}
 	}
 
@@ -17,5 +59,6 @@
 		z-index: 0;
 		background: #ddd;
 		left: 0;
+		outline: 1em solid #ddd;
 	}
 }

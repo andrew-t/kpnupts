@@ -153,7 +153,8 @@ function calculateNewFrame(game, now) {
 		} else {
 			// Now we need to work out where it is:
 			let oldPosition = game.pusherPosition,
-				pusherDelta = (delta / pusherSpeed) * game.pusherDirection;
+				pusherDelta = (delta / pusherSpeed) * game.pusherDirection,
+				pusherBottom = game.pusherPosition + pusherRows;
 			game.pusherPosition += pusherDelta;
 			if (game.pusherPosition < 0) {
 				// The pusher has stopped at the top
@@ -168,21 +169,24 @@ function calculateNewFrame(game, now) {
 			} else if (game.pusherPosition > pusherMotion) {
 				// The pusher has stopped at the bottom
 				game.pusherPosition = pusherMotion;
-				stopPusher()
+				stopPusher();
 			}
 
 			function stopPusher() {
 				game.pusherDirection = 0;
 				game.pusherStateChange = now;
 				game.grid.forEach(col => {
-					// Force all the blocks into integer positions
-					for (let block in col)
+					for (let block of col) {
+						// Force all the blocks into integer positions
 						block.y = Math.round(block.y);
+						// Drop things off the pusher
+						if (block.y > pusherBottom - 0.5)
+							block.onPusher = false;
+					}
 				});
 			}
 
 			// Now move any blocks that are on it:
-			let pusherBottom = game.pusherPosition + pusherRows;
 			game.grid.forEach(column => {
 				for (let block of column)
 					if (block.onPusher) {
@@ -190,8 +194,6 @@ function calculateNewFrame(game, now) {
 						if (game.pusherDirection == up &&
 							block.y < 0)
 							block.y = 0;
-						if (block.y > pusherBottom - 0.5)
-							block.onPusher = false;
 					} else if (block.y < pusherBottom)
 						block.y = pusherBottom;
 			});

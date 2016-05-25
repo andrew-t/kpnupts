@@ -28,8 +28,9 @@ var display = (function() {
 				let el = block.element;
 				if (!el) {
 					el = block.element =
-						document.createElement('img');
-					el.src = 'img/' + block.symbol.slug + '.png';
+						document.createElement('div');
+					el.classList.add(block.symbol.slug);
+					el.classList.add(block.colour.slug);
 					el.style.backgroundColor = block.colour.hex;
 					boardElement.appendChild(el);
 				}
