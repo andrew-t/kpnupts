@@ -62,3 +62,13 @@
 		outline: 1em solid #ddd;
 	}
 }
+
+#score {
+	font-size: 10em;
+	position: absolute;
+	display: block;
+	right: 1rem;
+	top: 1rem;
+	font-family: sans-serif;
+	text-align: right;
+}

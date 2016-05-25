@@ -2,13 +2,14 @@ var display = (function() {
 
 	var boardElement,
 		pusherElement,
-		columnElements = [];
+		scoreElement, scoreNode;
 
 	return {
 		drawGrid
 	};
 
 	function drawGrid(game) {
+
 		if (!boardElement)
 			boardElement = document.getElementById('grid');
 		if (!pusherElement) {
@@ -16,6 +17,8 @@ var display = (function() {
 			pusherElement.style.width = blockPosition(cols);
 			pusherElement.style.height = blockPosition(pusherRows + pusherMotion);
 		}
+		if (!scoreElement)
+			scoreElement = document.getElementById('score');
 
 		let allChildren = new Set();
 		for (let i = 0; i < boardElement.children.length; ++i)
@@ -48,6 +51,11 @@ var display = (function() {
 			boardElement.removeChild(child);
 
 		pusherElement.style.top = blockPosition(game.pusherPosition - pusherMotion);
+
+		if (scoreNode)
+			scoreElement.removeChild(scoreNode);
+		scoreNode = document.createTextNode(game.score);
+		scoreElement.appendChild(scoreNode);
 	}
 
 	function blockPosition(val) {
