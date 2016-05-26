@@ -2,6 +2,7 @@ var display = (function() {
 
 	var boardElement,
 		pusherElement,
+		swapTimerElement, swapFillerElement,
 		scoreElement, scoreNode, lastScore;
 
 	return {
@@ -12,6 +13,10 @@ var display = (function() {
 
 		if (!boardElement)
 			boardElement = document.getElementById('grid');
+		if (!swapFillerElement) {
+			swapTimerElement = document.getElementById('swap-timer');
+			swapFillerElement = document.getElementById('swap-filler');
+		}
 		if (!pusherElement) {
 			pusherElement = document.getElementById('pusher');
 			pusherElement.style.width = blockPosition(cols);
@@ -21,8 +26,10 @@ var display = (function() {
 			scoreElement = document.getElementById('score');
 
 		let allChildren = new Set();
-		for (let i = 0; i < boardElement.children.length; ++i)
-			allChildren.add(boardElement.children[i]);
+		for (let i = 0; i < boardElement.children.length; ++i) {
+			if (!boardElement.children[i].classList.contains('die'))
+				allChildren.add(boardElement.children[i]);
+		}
 
 		game.grid.forEach((column, x) => {
 			column.forEach(block => {
@@ -47,8 +54,12 @@ var display = (function() {
 			});
 		});
 
-		for (let child of allChildren)
-			boardElement.removeChild(child);
+		allChildren.forEach(child => {
+			child.classList.add('die');
+			setTimeout(() => {
+				boardElement.removeChild(child);
+			}, blockDieTime);
+		});
 
 		pusherElement.style.top = blockPosition(game.pusherPosition - pusherMotion);
 
@@ -60,6 +71,17 @@ var display = (function() {
 			scoreNode = document.createTextNode(game.score);
 			scoreElement.appendChild(scoreNode);
 			lastScore = game.score;
+		}
+
+		// TODO - this is hacky
+		if (game.swaps !== undefined) {
+			swapTimerElement.classList.remove(
+				'swap-' + ((game.swaps - 1) % swapTimerClasses));
+			swapTimerElement.classList.add(
+				'swap-' + (game.swaps % swapTimerClasses));
+			swapFillerElement.style.width =
+				(Date.now() - game.lastSwap) * 100 /
+					swapDelay + '%';
 		}
 
 		game.cursors.forEach(cursor => cursor.display());

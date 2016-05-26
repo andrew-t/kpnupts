@@ -1,3 +1,9 @@
+$blue: #00f;
+$purple: #80d;
+$grey: #aaa;
+
+$cursor-thickness: 0.25em;
+
 #board {
 	position: relative;
 
@@ -11,13 +17,13 @@
 			// &.pusher { outline: 1px solid red; }
 
 			&.blue {
-				background-color: #0000ff;
+				background-color: $blue;
 			}
 			&.purple {
-				background-color: #8800dd;
+				background-color: $purple;
 			}
 			&.grey {
-				background-color: #dddddd;
+				background-color: $grey;
 			}
 
 			background-size: contain;
@@ -51,6 +57,11 @@
 			&.cupcake {
 				background-image: url('../img/cupcake.png');
 			}
+
+			transition: opacity 300ms;
+			&.die {
+				opacity: 0;
+			}
 		}
 	}
 
@@ -64,18 +75,18 @@
 
 	#cursors {
 		position: relative;
-		left: -.25em;
-		top: -.25em;
+		left: -$cursor-thickness;
+		top: -$cursor-thickness;
 		> * {
 			position: absolute;
 			z-index: 2;
 			transition: top 150ms, left 150ms;
 			border-radius: .25em;
 			&:first-child {
-				border: .25em solid #f80;
+				border: $cursor-thickness solid #f80;
 			}
 			&:nth-child(2) {
-				border: .25em solid #f0f;
+				border: $cursor-thickness solid #f0f;
 			}
 		}
 	}
@@ -89,4 +100,39 @@
 	top: 1rem;
 	font-family: sans-serif;
 	text-align: right;
+}
+
+#swap-timer {
+	position: absolute;
+	display: block;
+	right: 1rem;
+	width: 20vw;
+	height: 1rem;
+	top: 12rem;
+
+	#swap-filler {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+	}
+
+	&.swap-1 {
+		background-color: $blue;
+		#swap-filler {
+			background-color: $purple;
+		}
+	}
+	&.swap-2 {
+		background-color: $purple;
+		#swap-filler {
+			background-color: $grey;
+		}
+	}
+	&.swap-0 {
+		background-color: $grey;
+		#swap-filler {
+			background-color: $blue;
+		}
+	}
 }

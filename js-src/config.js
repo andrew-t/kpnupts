@@ -8,7 +8,7 @@ var cols = 7,
 
 	lineLength = 3,
 	lineScore = 1,
-	noLoneScore = new Set([ 'k' ]), // no points for KKK
+	noLineScore = new Set([ 'k' ]), // no points for KKK
 	colourScore = 2,
 
 	up = -1,
@@ -16,10 +16,15 @@ var cols = 7,
 
 	blockSize = 5,
 	blockUnit = 'vh',
+	blockDieTime = 300, // milliseconds
 
 	pusherSpeed = 1000, // milliseconds per tile
 	pusherPause = 1000, // milliseconds at extremes
 	pusherPeriod = (pusherSpeed * pusherMotion + pusherPause) * 2,
+
+	swapDelay = 1500, // milliseconds
+	swapCursors = false,
+	swapTimerClasses = 3,
 
 	maxDeltaPerFrame = 250, // milliseconds
 	yEpsilon = 0.05,

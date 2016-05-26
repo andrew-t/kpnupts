@@ -12,6 +12,7 @@ function startGame() {
 	var frameRequestId =
 			window.requestAnimationFrame(frameCalculator),
 		game = {
+			startTime: Date.now(),
 			grid,
 			stop,
 			score: 0,
@@ -128,6 +129,7 @@ function calculateNewFrame(game, now) {
 	scoreLinesOfThree(game);
 	game.cursors.forEach(cursor => cursor.snapToBlock());
 	checkGamepad();
+	swapTilesIfNeeded(game);
 
 }
 

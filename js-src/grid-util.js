@@ -80,7 +80,8 @@ function scoreLinesOfThree(game) {
 		}
 		// It's a line!
 		line.forEach(block => blocksToRemove.add(block));
-		game.score += lineScore;
+		if (!noLineScore.has(line[0].symbol.slug))
+			game.score += lineScore;
 		if (colourMatch)
 			game.score += colourScore;
 	}
