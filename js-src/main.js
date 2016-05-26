@@ -120,9 +120,13 @@ function calculateNewFrame(game, now) {
 	// update lastY and delete things that have fallen off the bottom
 	game.grid.forEach(column => {
 		for (let block of column)
-			if (block.y >= height - 0.5)
+			if (block.y >= height - 0.5) {
 				column.delete(block);
-			else
+				game.cursors.forEach(cursor => {
+					if (block == cursor.block)
+						cursor.moveY(up);
+				});
+			} else
 				block.lastY = block.y;
 	});
 
