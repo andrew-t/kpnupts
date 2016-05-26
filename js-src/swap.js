@@ -21,9 +21,9 @@ function swapTilesIfNeeded(game) {
 		game.cursors.forEach(cursor => {
 			if (cursor.block) {
 				game.grid.forEach(col => col.delete(cursor.block));
-				cursor.block.x = cursor.x;
+				flyTo(cursor.block, cursor.x, cursor.y, 150);
+				cursor.block.lastY = cursor.block.y;
 				game.grid[cursor.block.x].add(cursor.block);
-				cursor.block.y = cursor.block.lastY = cursor.y;
 			}
 		});
 

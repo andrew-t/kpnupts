@@ -47,4 +47,6 @@ var cols = 7,
 		{ slug: 'infinity' },
 		{ slug: 'teapot' },
 		{ slug: 'cupcake' }
-	];
+	],
+
+	defaultFlightTime = 300; // milliseconds

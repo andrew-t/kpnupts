@@ -34,6 +34,7 @@ var display = (function() {
 		game.grid.forEach((column, x) => {
 			column.forEach(block => {
 				if (!block) return;
+				block.x = x;
 
 				let el = block.element;
 				if (!el) {
@@ -41,13 +42,13 @@ var display = (function() {
 						document.createElement('div');
 					el.classList.add(block.symbol.slug);
 					el.classList.add(block.colour.slug);
+					el.style.width = el.style.height =
+						blockPosition(1);
 					el.style.backgroundColor = block.colour.hex;
 					boardElement.appendChild(el);
 				}
 
-				el.style.top = blockPosition(block.y);
-				el.style.left = blockPosition(x);
-				el.style.width = el.style.height = blockPosition(1);
+				drawSprite(block);
 				el.classList[block.onPusher ? 'add' : 'remove']('pusher');
 
 				allChildren.delete(el);
@@ -88,7 +89,3 @@ var display = (function() {
 	}
 
 })();
-
-function blockPosition(val) {
-	return (val * blockSize) + blockUnit;
-}

@@ -22,13 +22,19 @@ class Cursor {
 				this.block = block;
 	}
 
-	bindToBlock(block) {
+	bindToBlock(block, fly) {
 		this.block = block;
-		this.y = block.y;
+		var newX;
 		this.game.grid.forEach((col, x) => {
 			if (col.has(block))
-				this.x = x;
+				newX = x;
 		});
+		if (fly)
+			flyTo(this, newX, block.y, 150);
+		else {
+			this.x = newX;
+			this.y = block.y;
+		}
 	}
 
 	moveX(direction) {
@@ -39,7 +45,7 @@ class Cursor {
 				if (block.y >= this.y - 0.5 &&
 					block.y < this.y + 0.5)
 				{
-					this.bindToBlock(block);
+					this.bindToBlock(block, true);
 					return;
 				}
 	}
@@ -58,7 +64,7 @@ class Cursor {
 				best = block;
 		}
 		if (best)
-			this.bindToBlock(best);
+			this.bindToBlock(best, true);
 	}
 
 	display() {
@@ -69,8 +75,7 @@ class Cursor {
 			this.element.style.width = blockPosition(1);
 			this.element.style.height = blockPosition(1);
 		}
-		this.element.style.left = blockPosition(this.x);
-		this.element.style.top = blockPosition(this.y);
+		drawSprite(this);
 	}
 
 	destroy() {
