@@ -12,8 +12,9 @@ var display = (function() {
 
 		if (!boardElement) {
 			boardElement = document.getElementById('grid');
-			grid.style.height = blockPosition(height);
-			grid.style.width = blockPosition(cols);
+			let realBoard = document.getElementById('board');
+			realBoard.style.height = blockPosition(height);
+			realBoard.style.width = blockPosition(cols);
 		}
 		if (!swapFillerElement) {
 			swapTimerElement = document.getElementById('swap-timer');

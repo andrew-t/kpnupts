@@ -11,6 +11,8 @@ var cols = 5,
 	lineScore = 1,
 	noLineScore = new Set([ 'k' ]), // no points for KKK
 	colourScore = 2,
+
+	tileChance = 0.6,
 	allowedDrops = 20,
 
 	up = -1,
@@ -30,8 +32,6 @@ var cols = 5,
 
 	maxDeltaPerFrame = 250, // milliseconds
 	yEpsilon = 0.05,
-
-	tileChance = .75,
 
 	colours = [
 		{ slug: 'blue' },

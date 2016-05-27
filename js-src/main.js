@@ -1,7 +1,10 @@
 function startGame() {
 
 	var scoreElement = document.getElementById('score'),
-		dropsElement = document.getElementById('drops');
+		dropsElement = document.getElementById('drops'),
+		blurbElement = document.getElementById('blurb');
+
+	blurbElement.classList.add('hidden');
 
 	// Initialise
 	var grid = [];
@@ -47,9 +50,12 @@ function startGame() {
 			window.cancelAnimationFrame(frameRequestId);
 			game.cursors.forEach(cursor => cursor.destroy());
 			unbindKeys();
+			// Not part of teardown; just polite:
+			updateBound();
 			unbindScore();
 			unbindDrops();
 			game.ongoing = false;
+			// blurbElement.classList.remove('hidden');
 		}
 	}
 
