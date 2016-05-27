@@ -12,13 +12,9 @@
 	<script type="text/javascript" src="js-lib/sprite.js"></script>
 	<script type="text/javascript" src="js-lib/swap.js"></script>
 	<script type="text/javascript" src="js-lib/main.js"></script>
+	<script type="text/javascript" src="js-lib/bind.js"></script>
 	<script type="text/javascript" src="js-lib/display.js"></script>
-	<script type="text/javascript">
-		'use strict';
-		document.addEventListener('DOMContentLoaded', e => {
-			var game = startGame();
-		});
-	</script>
+	<script type="text/javascript" src="js-lib/play.js"></script>
 </head>
 <body>
 	<div id="board">
@@ -27,6 +23,7 @@
 		<div id="cursors"></div>
 	</div>
 	<span id="score"></span>
+	<span id="drops"></span>
 	<div id="swap-timer"><div id="swap-filler"></div></div>
 </body>
 </html>

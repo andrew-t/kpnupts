@@ -12,6 +12,7 @@ $cursor-thickness: 0.25em;
 		left: 0;
 		top: 0;
 		z-index: 1;
+		border-bottom: 5px solid red;
 		> * {
 			position: absolute;
 			// &.pusher { outline: 1px solid red; }
@@ -97,6 +98,15 @@ $cursor-thickness: 0.25em;
 	display: block;
 	right: 1rem;
 	top: 1rem;
+	font-family: sans-serif;
+	text-align: right;
+}
+#drops {
+	font-size: 5em;
+	position: absolute;
+	display: block;
+	right: 1rem;
+	top: 14rem;
 	font-family: sans-serif;
 	text-align: right;
 }

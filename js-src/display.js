@@ -2,8 +2,7 @@ var display = (function() {
 
 	var boardElement,
 		pusherElement,
-		swapTimerElement, swapFillerElement,
-		scoreElement, scoreNode, lastScore;
+		swapTimerElement, swapFillerElement;
 
 	return {
 		drawGrid
@@ -11,8 +10,11 @@ var display = (function() {
 
 	function drawGrid(game) {
 
-		if (!boardElement)
+		if (!boardElement) {
 			boardElement = document.getElementById('grid');
+			grid.style.height = blockPosition(height);
+			grid.style.width = blockPosition(cols);
+		}
 		if (!swapFillerElement) {
 			swapTimerElement = document.getElementById('swap-timer');
 			swapFillerElement = document.getElementById('swap-filler');
@@ -22,8 +24,6 @@ var display = (function() {
 			pusherElement.style.width = blockPosition(cols);
 			pusherElement.style.height = blockPosition(pusherRows + pusherMotion);
 		}
-		if (!scoreElement)
-			scoreElement = document.getElementById('score');
 
 		let allChildren = new Set();
 		for (let i = 0; i < boardElement.children.length; ++i) {
@@ -64,15 +64,7 @@ var display = (function() {
 
 		pusherElement.style.top = blockPosition(game.pusherPosition - pusherMotion);
 
-		if (scoreNode && (lastScore !== game.score)) {
-			scoreElement.removeChild(scoreNode);
-			scoreNode = null;
-		}
-		if (!scoreNode) {
-			scoreNode = document.createTextNode(game.score);
-			scoreElement.appendChild(scoreNode);
-			lastScore = game.score;
-		}
+		updateBound();
 
 		// TODO - this is hacky
 		if (game.swaps !== undefined) {

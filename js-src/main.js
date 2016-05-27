@@ -1,11 +1,15 @@
 function startGame() {
+
+	var scoreElement = document.getElementById('score'),
+		dropsElement = document.getElementById('drops');
+
 	// Initialise
 	var grid = [];
 	for (let i = 0; i < cols; ++i)
 		grid.push(new Set());
 	// Pre-populate pusher
 	grid.forEach(col => {
-		for (let y = 0; y < pusherRows; ++y)
+		for (let y = 0; y < cursorAreaTop + preblockRows; ++y)
 			col.add(randomTile(y));
 	});
 
@@ -15,16 +19,21 @@ function startGame() {
 			startTime: Date.now(),
 			grid,
 			stop,
+			ongoing: true,
 			score: 0,
-			pusherPosition: 0,
-			pusherDirection: up,
-			pusherStateChange: null
+			drops: 0,
+			pusherPosition: pusherMotion,
+			pusherDirection: 0,
+			pusherStateChange: 1 // long, long ago
 		};
 	game.cursors = [
 		new Cursor(game, 1, cursorAreaTop),
 		new Cursor(game, cols - 2, cursorAreaTop)
 	];
-	var unbindKeys = bindKeys(game);
+
+	var unbindKeys = bindKeys(game),
+		unbindScore = bind(scoreElement, game, 'score'),
+		unbindDrops = bind(dropsElement, game, 'drops');
 
 	function frameCalculator(now) {
 		frameRequestId =
@@ -34,9 +43,14 @@ function startGame() {
 	}
 
 	function stop() {
-		window.cancelAnimationFrame(frameRequestId);
-		game.cursors.forEach(cursor => cursor.destroy());
-		unbindKeys();
+		if (game.ongoing) {
+			window.cancelAnimationFrame(frameRequestId);
+			game.cursors.forEach(cursor => cursor.destroy());
+			unbindKeys();
+			unbindScore();
+			unbindDrops();
+			game.ongoing = false;
+		}
 	}
 
 	return game;
@@ -122,6 +136,8 @@ function calculateNewFrame(game, now) {
 		for (let block of column)
 			if (block.y >= height - 0.5) {
 				column.delete(block);
+				if (++game.drops > allowedDrops)
+					game.stop();
 				game.cursors.forEach(cursor => {
 					if (block == cursor.block)
 						cursor.moveY(up);

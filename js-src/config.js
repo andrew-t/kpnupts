@@ -1,8 +1,9 @@
 // Game board dimensions, etc:
-var cols = 7,
+var cols = 5,
 	pusherRows = 4,
 	pusherMotion = 2,
 	plateRows = 10,
+	preblockRows = 2,
 	cursorAreaTop = pusherRows + pusherMotion,
 	height = pusherRows + pusherMotion + plateRows,
 
@@ -10,6 +11,7 @@ var cols = 7,
 	lineScore = 1,
 	noLineScore = new Set([ 'k' ]), // no points for KKK
 	colourScore = 2,
+	allowedDrops = 20,
 
 	up = -1,
 	down = 1,
@@ -19,7 +21,7 @@ var cols = 7,
 	blockDieTime = 300, // milliseconds
 
 	pusherSpeed = 1000, // milliseconds per tile
-	pusherPause = 1000, // milliseconds at extremes
+	pusherPause = 3000, // milliseconds at extremes
 	pusherPeriod = (pusherSpeed * pusherMotion + pusherPause) * 2,
 
 	swapDelay = 1500, // milliseconds
