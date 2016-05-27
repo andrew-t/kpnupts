@@ -1,8 +1,17 @@
-$blue: #00f;
-$purple: #80d;
-$grey: #aaa;
+$blue: #4ac6e1;
+$purple: #322e89;
+$grey: #666666;
 
+$colours: grey purple blue;
+$symbols: teapot question k plus p infinity robot cupcake star triforce;
+
+$symbol-size: 1.2;
 $cursor-thickness: 0.25em;
+
+body {
+	margin: 0;
+	padding: 0;
+}
 
 #board {
 	position: relative;
@@ -15,49 +24,21 @@ $cursor-thickness: 0.25em;
 		border-bottom: 5px solid red;
 		> * {
 			position: absolute;
-			// &.pusher { outline: 1px solid red; }
 
-			&.blue {
-				background-color: $blue;
+			@for $c from 1 through length($colours) {
+				@for $s from 1 through length($symbols) {
+					$colour: nth($colours, $c);
+					$symbol: nth($symbols, $s);
+					&.#{$colour}.#{$symbol} {
+						background-position:
+							#{($s - 1) / 9 * 100%}
+							#{($c - 1) / 2 * 100%};
+					}
+				}
 			}
-			&.purple {
-				background-color: $purple;
-			}
-			&.grey {
-				background-color: $grey;
-			}
-
-			background-size: contain;
-			&.p {
-				background-image: url('../img/p.png');
-			}
-			&.plus {
-				background-image: url('../img/plus.png');
-			}
-			&.k {
-				background-image: url('../img/k.png');
-			}
-			&.robot {
-				background-image: url('../img/robot.png');
-			}
-			&.star {
-				background-image: url('../img/star.png');
-			}
-			&.question {
-				background-image: url('../img/question.png');
-			}
-			&.triforce {
-				background-image: url('../img/triforce.png');
-			}
-			&.infinity {
-				background-image: url('../img/infinity.png');
-			}
-			&.teapot {
-				background-image: url('../img/teapot.png');
-			}
-			&.cupcake {
-				background-image: url('../img/cupcake.png');
-			}
+			background-size: 1000% 300%;
+			background-image: url('../img/sprites.png');
+			transform: scale($symbol-size);
 
 			transition: opacity 300ms;
 			&.die {
@@ -71,7 +52,7 @@ $cursor-thickness: 0.25em;
 		z-index: 0;
 		background: #ddd;
 		left: 0;
-		outline: 1em solid #ddd;
+		background: url('../img/pusher.jpg') center;
 	}
 
 	#cursors {
@@ -114,10 +95,11 @@ $cursor-thickness: 0.25em;
 #swap-timer {
 	position: absolute;
 	display: block;
-	right: 1rem;
-	width: 20vw;
-	height: 1rem;
-	top: 12rem;
+	top: 98vh;
+	width: 100vw;
+	height: 2vh;
+	left: 0;
+	z-index: 1;
 
 	#swap-filler {
 		position: absolute;

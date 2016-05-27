@@ -16,8 +16,8 @@ var cols = 5,
 	up = -1,
 	down = 1,
 
-	blockSize = 5,
-	blockUnit = 'vh',
+	blockSize = 98 / height,
+	blockUnit = 'vmin',
 	blockDieTime = 300, // milliseconds
 
 	pusherSpeed = 1000, // milliseconds per tile
