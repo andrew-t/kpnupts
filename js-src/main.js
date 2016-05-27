@@ -30,8 +30,8 @@ function startGame() {
 			pusherStateChange: 1 // long, long ago
 		};
 	game.cursors = [
-		new Cursor(game, 1, cursorAreaTop),
-		new Cursor(game, cols - 2, cursorAreaTop)
+		new GameCursor(game, 1, cursorAreaTop),
+		new GameCursor(game, cols - 2, cursorAreaTop)
 	];
 
 	var unbindKeys = bindKeys(game),
