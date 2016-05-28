@@ -14,11 +14,11 @@ function checkGamepad() {
 				? navigator.webkitGetGamepads
 				: []);
 	if (gamepads[0]) {
-		control(0, 0, 0);
-		control(1, 0, 2);
+		control(1, 0, 0);
+		control(0, 0, 2);
 	}
 	if (gamepads[1])
-		control(1, 1, 0);
+		control(0, 1, 0);
 
 	function control(player, pad, stick) {
 		var gamepad = gamepads[pad];
