@@ -36,7 +36,8 @@ function startGame() {
 
 	var unbindKeys = bindKeys(game),
 		unbindScore = bind(scoreElement, game, 'score'),
-		unbindDrops = bind(dropsElement, game, 'drops');
+		unbindDrops = bind(dropsElement, game, 'drops'),
+		unbindGamepads = bindGamepad(game);
 
 	function frameCalculator(now) {
 		frameRequestId =
@@ -54,6 +55,7 @@ function startGame() {
 			updateBound();
 			unbindScore();
 			unbindDrops();
+			unbindGamepads();
 			game.ongoing = false;
 			// blurbElement.classList.remove('hidden');
 		}
