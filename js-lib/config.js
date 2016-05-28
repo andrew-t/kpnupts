@@ -32,6 +32,10 @@ swapCursors = false,
     maxDeltaPerFrame = 250,
     // milliseconds
 yEpsilon = 0.05,
-    colours = [{ slug: 'blue' }, { slug: 'purple' }, { slug: 'grey' }],
+    stickDeadZone = 0.6,
+    stickDeadTime = 150,
+    // milliseconds
+
+colours = [{ slug: 'blue' }, { slug: 'purple' }, { slug: 'grey' }],
     symbols = [{ slug: 'p' }, { slug: 'plus' }, { slug: 'k' }, { slug: 'robot' }, { slug: 'star' }, { slug: 'question' }, { slug: 'triforce' }, { slug: 'infinity' }, { slug: 'teapot' }, { slug: 'cupcake' }],
     defaultFlightTime = 300; // milliseconds

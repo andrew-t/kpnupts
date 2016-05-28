@@ -33,6 +33,9 @@ var cols = 5,
 	maxDeltaPerFrame = 250, // milliseconds
 	yEpsilon = 0.05,
 
+	stickDeadZone = 0.6,
+	stickDeadTime = 150, // milliseconds
+
 	colours = [
 		{ slug: 'blue' },
 		{ slug: 'purple' },
