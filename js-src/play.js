@@ -10,6 +10,7 @@ document.addEventListener('keydown', e => {
 			if (currentGame && currentGame.ongoing)
 				currentGame.stop();
 			break;
+		default: return;
 	}
 	e.preventDefault();
 });
